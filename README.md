@@ -19,4 +19,4 @@ The site is fully responsive and hosted using **GitHub Pages**.
 
 
 ## 🌍 Live Demo
-🔗 **Website:** https://yourusername.github.io/](https://amalsreekumar1.github.io/Amal-S-Portfolio/
+🔗 **Website:** https://amalsreekumar1.github.io/Amal-S-Portfolio/
