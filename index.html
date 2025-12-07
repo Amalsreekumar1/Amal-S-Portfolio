@@ -12,7 +12,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* FIX: Canvas is now the root background. Body/HTML must be transparent. */
+        
         body,
         html {
             background-color: transparent;
@@ -666,31 +666,7 @@
         document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // The URL is provided by the user for a hypothetical Google Script
             const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsxGCUf41mM2GMti7CrSXiNz0dwyZPPMkZF5WXMbJTPlFpBDws-NjDttEpGVjibPG8/exec";
-
-            if (GOOGLE_SCRIPT_URL.includes("AKfycb")) { // Simple check if the placeholder URL is still active
-                const contactSection = document.getElementById('contact');
-                const form = this;
-
-                const messageBox = document.createElement('div');
-                messageBox.className = 'mt-6 p-4 bg-green-900/50 text-green-300 font-medium rounded-lg max-w-md mx-auto transition-opacity duration-500';
-                messageBox.textContent = 'Demo successful! Replace the GOOGLE_SCRIPT_URL to enable real sending.';
-
-                const existingMessage = contactSection.querySelector('.mt-6.p-4');
-                if (existingMessage) {
-                    existingMessage.remove();
-                }
-                form.after(messageBox);
-                form.reset();
-
-                setTimeout(() => {
-                    messageBox.style.opacity = '0';
-                    setTimeout(() => messageBox.remove(), 500);
-                }, 5000);
-
-                return;
-            }
 
             const form = this;
             const submitButton = document.getElementById('submit-button');
@@ -733,8 +709,7 @@
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
-                    submitButton.textContent = "Error";
-                    // Using custom element instead of alert()
+                    submitButton.textContent = "Error";                    
                     const errorBox = document.createElement('div');
                     errorBox.className = 'mt-6 p-4 bg-red-900/50 text-red-300 font-medium rounded-lg max-w-md mx-auto';
                     errorBox.textContent = "Something went wrong. Please try again or email me directly.";
