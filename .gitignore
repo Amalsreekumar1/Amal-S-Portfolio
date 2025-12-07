@@ -1,18 +1,28 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+# Ignore system files
+.DS_Store
+Thumbs.db
 
-# Other files and folders
-.settings/
+# Ignore node modules (if you used npm for Tailwind/Bootstrap build)
+node_modules/
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# Ignore build artifacts
+dist/
+build/
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# Ignore environment files (never upload secrets)
+.env
+.env.local
+.env.*.local
+
+# Ignore temporary files
+*.log
+*.tmp
+
+# Ignore IDE/editor folders
+.vscode/
+.idea/
+
+# Ignore package lock files (optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
