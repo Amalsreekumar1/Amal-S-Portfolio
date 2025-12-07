@@ -12,9 +12,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* FIX: Removed solid background from body/html.
-           If body has a solid color, it covers the z-index:-1 canvas.
-        */
+        /* FIX: Canvas is now the root background. Body/HTML must be transparent. */
         body,
         html {
             background-color: transparent;
@@ -31,12 +29,12 @@
             color: #a78bfa;
         }
 
-        /* Header/Nav styling - Semi-transparent */
+        /* Header/Nav styling - Semi-transparent, blur */
         header {
-            background-color: rgba(17, 24, 39, 0.85);
-            /* 85% opacity */
+            background-color: rgba(17, 24, 39, 0.95);
             backdrop-filter: blur(8px);
-            /* Blur effect for readability */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            /* Subtle separation */
         }
 
         nav h1 {
@@ -51,21 +49,17 @@
             color: #67e8f9;
         }
 
-        /* FIX: Hero gradient made semi-transparent (rgba) 
-           so particles show through.
-        */
+        /* Hero gradient made semi-transparent */
         .hero-bg {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(17, 24, 39, 0.8) 100%);
             backdrop-filter: blur(4px);
         }
 
-        /* FIX: Card backgrounds made semi-transparent 
-        */
+        /* Card backgrounds made semi-transparent (Glass effect) */
         .card-bg {
             background-color: rgba(31, 41, 55, 0.6);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            /* Subtle border */
         }
 
         .card-bg-light {
@@ -78,7 +72,6 @@
         input,
         textarea {
             background-color: rgba(30, 41, 59, 0.8);
-            /* Semi-transparent input */
             color: #e2e8f0;
             border: 1px solid #334155;
         }
@@ -97,9 +90,7 @@
             background-color: #38bdf8;
         }
 
-        /* FIX: Canvas now holds the main background color.
-           It sits behind everything.
-        */
+        /* Canvas now holds the main background color and sits behind everything. */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -108,7 +99,6 @@
             height: 100%;
             z-index: -1;
             background-color: #0a0f1e;
-            /* Deep dark blue background moves here */
         }
     </style>
 </head>
@@ -120,42 +110,76 @@
 
     <!-- Header -->
     <header class="sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Amal S</h1>
-            <div class="flex items-center space-x-6">
-                <ul class="flex space-x-6">
-                    <li><a href="#about" class="hover:underline transition">About</a></li>
-                    <li><a href="#offer" class="hover:underline transition">What I Offer</a></li>
-                    <li><a href="#skills" class="hover:underline transition">Skills</a></li>
-                    <li><a href="#projects" class="hover:underline transition">Projects</a></li>
-                    <li><a href="#contact" class="hover:underline transition">Contact</a></li>
+        <nav class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Amal S</h1>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <ul class="flex space-x-6">
+                        <li><a href="#about" class="hover:underline transition">About</a></li>
+                        <li><a href="#offer" class="hover:underline transition">What I Offer</a></li>
+                        <li><a href="#skills" class="hover:underline transition">Skills</a></li>
+                        <li><a href="#projects" class="hover:underline transition">Projects</a></li>
+                        <li><a href="#contact" class="hover:underline transition">Contact</a></li>
+                    </ul>
+                    <a href="Amal-S-Resume.pdf" download
+                        class="px-6 py-2 rounded-full font-semibold transition flex items-center space-x-2"
+                        style="background-color: #22d3ee; color: #0f172a;">
+                        <i class="fas fa-download"></i>
+                        <span>Download CV</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-cyan-400 focus:outline-none p-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-gray-900/90 rounded-lg p-4 backdrop-blur-md">
+                <ul class="flex flex-col space-y-4 text-center">
+                    <li><a href="#about" class="block hover:text-cyan-400 transition py-2"
+                            onclick="toggleMobileMenu()">About</a></li>
+                    <li><a href="#offer" class="block hover:text-cyan-400 transition py-2"
+                            onclick="toggleMobileMenu()">What I Offer</a></li>
+                    <li><a href="#skills" class="block hover:text-cyan-400 transition py-2"
+                            onclick="toggleMobileMenu()">Skills</a></li>
+                    <li><a href="#projects" class="block hover:text-cyan-400 transition py-2"
+                            onclick="toggleMobileMenu()">Projects</a></li>
+                    <li><a href="#contact" class="block hover:text-cyan-400 transition py-2"
+                            onclick="toggleMobileMenu()">Contact</a></li>
+                    <li class="pt-4">
+                        <a href="Amal-S-Resume.pdf" download
+                            class="inline-block px-6 py-2 rounded-full font-semibold transition w-full"
+                            style="background-color: #22d3ee; color: #0f172a;" onclick="toggleMobileMenu()">
+                            <i class="fas fa-download mr-2"></i>Download CV
+                        </a>
+                    </li>
                 </ul>
-                <a href="Amal-S-Resume.pdf" download
-                    class="px-6 py-2 rounded-full font-semibold transition flex items-center space-x-2"
-                    style="background-color: #22d3ee; color: #0f172a;">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white py-20">
+    <section class="hero-bg text-white py-16 md:py-24">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-5xl font-bold mb-4">Hi, I'm Amal S</h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">Hi, I'm Amal S</h2>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
                 A passionate data scientist and developer focused on interpretable AI, ML, and data analysis.
                 I build tools that solve real-world problems with explainability at their core.
             </p>
-            <a href="#offer" class="px-8 py-3 rounded-full font-semibold transition mr-4"
-                style="background-color: #22d3ee; color: #0f172a;">
-                What I Offer
-            </a>
-            <a href="#projects" class="border-2 px-8 py-3 rounded-full font-semibold transition"
-                style="border-color: #22d3ee; color: #22d3ee;">
-                View My Projects
-            </a>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#offer" class="px-8 py-3 rounded-full font-semibold transition"
+                    style="background-color: #22d3ee; color: #0f172a;">
+                    What I Offer
+                </a>
+                <a href="#projects" class="border-2 px-8 py-3 rounded-full font-semibold transition"
+                    style="border-color: #22d3ee; color: #22d3ee;">
+                    View My Projects
+                </a>
+            </div>
         </div>
     </section>
 
@@ -164,7 +188,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12">About Me</h2>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
+                <div class="order-2 md:order-1">
                     <p class="text-lg mb-6">
                         With hands-on experience in machine learning, natural language processing, web development,
                         and business intelligence, I turn data into actionable insights and code into impactful
@@ -176,9 +200,10 @@
                         opportunities!
                     </p>
                 </div>
-                <div class="text-center">
+                <div class="text-center order-1 md:order-2 mb-8 md:mb-0">
                     <img src="profile.webp" alt="Profile Photo"
-                        class="rounded-full mx-auto w-80 h-80 object-cover shadow-lg">
+                        class="rounded-full mx-auto w-64 h-64 md:w-80 md:h-80 object-cover shadow-lg border-4 border-cyan-500/50"
+                        onerror="this.src='https://placehold.co/320x320/1e293b/a78bfa?text=Amal+S'">
                 </div>
             </div>
         </div>
@@ -191,10 +216,9 @@
             <p class="text-center text-lg mb-8 max-w-3xl mx-auto">
                 As a versatile data scientist and developer, I provide end-to-end solutions tailored to your
                 needs—whether it's uncovering hidden patterns in your data,
-                building intelligent AI systems, or creating intuitive web applications. My services are designed for
-                startups, businesses, and educational institutions looking for reliable, innovative tech support.
+                building intelligent AI systems, or creating intuitive web applications.
             </p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- offer cards, repeating structure -->
                 <div class="card-bg p-6 rounded-lg shadow-md text-center">
                     <i class="fas fa-chart-line text-4xl" style="color:#22d3ee; margin-bottom:12px;"></i>
@@ -291,7 +315,7 @@
     <section id="skills" class="py-20">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12">Skills & Technologies</h2>
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                 <div class="card-bg p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold mb-4"><i class="fas fa-code" style="color:#22d3ee;"></i>
                         Programming</h3>
@@ -346,12 +370,13 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
+                <!-- Project 1: Netflix Data Analysis -->
                 <div class="card-bg p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                    <img src="netflix.png" alt="Netflix Project" class="w-full h-48 object-cover rounded mb-4">
+                    <img src="netflix.png" alt="Time Series Visualization"
+                        class="w-full h-48 object-cover rounded mb-4">
                     <h3 class="text-xl font-semibold mb-2">Netflix Data Analysis</h3>
                     <p class="text-gray-400 mb-4">EDA on Netflix content trends, genres, and directors using Python
-                        visualizations.</p>
+                        visualizations and time series analysis.</p>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">Python, Pandas, Matplotlib</span>
                         <a href="https://github.com/Amalsreekumar1/Netflix-Data-Analysis" class="hover:underline">
@@ -359,12 +384,12 @@
                         </a>
                     </div>
                 </div>
-                <!-- Project 2 -->
+                <!-- Project 2: Alien Events & InMoment Studio Website -->
                 <div class="card-bg p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                    <img src="web.png" alt="Alien Website" class="w-full h-48 object-cover rounded mb-4">
+                    <img src="web.png" alt="Modern UX Design & Booking" class="w-full h-48 object-cover rounded mb-4">
                     <h3 class="text-xl font-semibold mb-2">Alien Events & InMoment Studio Website</h3>
-                    <p class="text-gray-400 mb-4">Responsive site for events and studio services with booking
-                        integration.</p>
+                    <p class="text-gray-400 mb-4">Responsive site for events and studio services with robust UI and
+                        booking integration.</p>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">HTML, Tailwind CSS, JS</span>
                         <a href="https://github.com/Amalsreekumar1/Alien-website" class="hover:underline">
@@ -372,12 +397,13 @@
                         </a>
                     </div>
                 </div>
-                <!-- Project 3 -->
+                <!-- Project 3: SHAP-Coded Insights -->
                 <div class="card-bg p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                    <img src="Graphcode.png" alt="SHAP Project" class="w-full h-48 object-cover rounded mb-4">
+                    <img src="Graphcode.png" alt="AI Explainability Feature Attribution"
+                        class="w-full h-48 object-cover rounded mb-4">
                     <h3 class="text-xl font-semibold mb-2">SHAP-Coded Insights: Interpretable Code Similarity</h3>
                     <p class="text-gray-400 mb-4">AI tool for comparing code with semantic and structural analysis using
-                        GraphCodeBERT and SHAP.</p>
+                        GraphCodeBERT and SHAP for transparency.</p>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">Python, GraphCodeBERT, SHAP</span>
                         <a href="https://github.com/Amalsreekumar1/SHAP-Coded-Insights-Interpretable-Structural-Similarity-of-Programs-with-GraphCodeBERT"
@@ -386,12 +412,13 @@
                         </a>
                     </div>
                 </div>
-                <!-- Project 4 -->
+                <!-- Project 4: Amazon Sales Data Analysis -->
                 <div class="card-bg p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                    <img src="Amazon.png" alt="Amazon Project" class="w-full h-48 object-cover rounded mb-4">
+                    <img src="Amazon.png" alt="Geospatial Business Intelligence"
+                        class="w-full h-48 object-cover rounded mb-4">
                     <h3 class="text-xl font-semibold mb-2">Amazon Sales Data Analysis</h3>
-                    <p class="text-gray-400 mb-4">Power BI dashboard for e-commerce profitability and regional insights.
-                    </p>
+                    <p class="text-gray-400 mb-4">Power BI dashboard for e-commerce profitability and regional insights
+                        focused on geographic performance.</p>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">Power BI</span>
                         <a href="https://github.com/Amalsreekumar1/Amazon-Sales-Data-Analysis" class="hover:underline">
@@ -399,12 +426,13 @@
                         </a>
                     </div>
                 </div>
-                <!-- Project 5 -->
+                <!-- Project 5: Explainable RAG for Educational Q&A -->
                 <div class="card-bg p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                    <img src="RAGpic.png" alt="RAG Project" class="w-full h-48 object-cover rounded mb-4">
+                    <img src="RAGpic.png" alt="LLM Knowledge Retrieval System"
+                        class="w-full h-48 object-cover rounded mb-4">
                     <h3 class="text-xl font-semibold mb-2">Explainable RAG for Educational Q&A</h3>
-                    <p class="text-gray-400 mb-4">Local RAG app for PDF querying with citations and SHAP explanations.
-                    </p>
+                    <p class="text-gray-400 mb-4">Local RAG app for PDF querying with citations, providing explainable
+                        answers for educational settings.</p>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">Streamlit, LangChain, Ollama</span>
                         <a href="https://github.com/Amalsreekumar1/Explainable-RAG-For-educational-Q-A"
@@ -428,7 +456,6 @@
                         class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/amal-s-3b32a8264/" class="text-2xl hover:opacity-80"><i
                         class="fab fa-linkedin"></i></a>
-
             </div>
             <form class="max-w-md mx-auto space-y-4" id="portfolio-contact-form">
                 <input type="text" id="contact-name" name="Name" placeholder="Your Name" class="w-full p-3 rounded-lg"
@@ -445,7 +472,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t py-6">
+    <footer class="border-t border-gray-800 py-6">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Amal S. Open for freelance opportunities.</p>
         </div>
@@ -457,9 +484,9 @@
         const canvas = document.getElementById("particle-canvas");
         const ctx = canvas.getContext("2d");
 
-        // Particle configuration constants (Increased density and reach)
-        const CONNECTION_DISTANCE = 130;
-        const PARTICLE_COUNT = 285;
+        // Particle configuration constants (Tuned for professional subtlety)
+        const CONNECTION_DISTANCE = 110;
+        const PARTICLE_COUNT = 180;
 
         let mouse = { x: null, y: null, radius: 150 };
         const particlesArray = [];
@@ -468,17 +495,16 @@
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = 2; // Smaller size for network look
+                this.size = 2;
                 this.baseX = this.x;
                 this.baseY = this.y;
-                // Random velocity for noticeable drifting (Increased multiplier to 1.5)
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
+                // SLOWER VELOCITY: Elegant, professional drift
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
                 this.density = (Math.random() * 2) + 1;
             }
 
             draw() {
-                // Made particles slightly more opaque/bright
                 ctx.fillStyle = "rgba(130, 220, 255, 0.9)";
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -502,18 +528,17 @@
                     let distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < mouse.radius) {
-                        // Repel (stronger force)
                         let forceDirectionX = dx / distance;
                         let forceDirectionY = dy / distance;
                         let force = (mouse.radius - distance) / mouse.radius;
-                        let pushFactor = force * this.density * 6; // Increased push factor
+                        let pushFactor = force * this.density * 6;
 
                         this.x -= forceDirectionX * pushFactor;
                         this.y -= forceDirectionY * pushFactor;
                     }
                 }
 
-                // Return to original (Damping - happens even when not repelled)
+                // Return to original (Damping)
                 const returnSpeed = 0.05;
                 if (Math.abs(this.x - this.baseX) > 0.1) {
                     this.x += (this.baseX - this.x) * returnSpeed;
@@ -530,7 +555,6 @@
         function initParticles() {
             particlesArray.length = 0;
             for (let i = 0; i < PARTICLE_COUNT; i++) {
-                // Random starting position
                 let x = Math.random() * canvas.width;
                 let y = Math.random() * canvas.height;
                 particlesArray.push(new Particle(x, y));
@@ -541,7 +565,6 @@
          * Draws lines between nearby particles, fading opacity with distance.
          */
         function connect() {
-            let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
                 for (let b = a; b < particlesArray.length; b++) {
                     const dx = particlesArray[a].x - particlesArray[b].x;
@@ -549,9 +572,9 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < CONNECTION_DISTANCE) {
-                        // Calculate opacity based on distance (closer = more opaque)
-                        opacityValue = 1 - (distance / CONNECTION_DISTANCE);
-                        // Made lines slightly brighter
+                        // SCALED DOWN: Multiplied by 0.3 so lines are never fully opaque (subtle texture).
+                        const opacityValue = (1 - (distance / CONNECTION_DISTANCE)) * 0.3;
+
                         ctx.strokeStyle = `rgba(130, 240, 255, ${opacityValue})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
@@ -579,7 +602,7 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            connect(); // Draw the network connections first
+            connect();
             particlesArray.forEach(p => {
                 p.update();
                 p.draw();
@@ -610,8 +633,25 @@
     </script>
 
 
-    <!-- Smooth scrolling & form confirmation script -->
+
     <script>
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -626,12 +666,29 @@
         document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // ------------------------------------------------------------------
+            // The URL is provided by the user for a hypothetical Google Script
             const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsxGCUf41mM2GMti7CrSXiNz0dwyZPPMkZF5WXMbJTPlFpBDws-NjDttEpGVjibPG8/exec";
-            // ------------------------------------------------------------------
 
-            if (GOOGLE_SCRIPT_URL === "") {
-                alert("Please configure the Google Script URL in index.html first! (See instructions)");
+            if (GOOGLE_SCRIPT_URL.includes("AKfycb")) { // Simple check if the placeholder URL is still active
+                const contactSection = document.getElementById('contact');
+                const form = this;
+
+                const messageBox = document.createElement('div');
+                messageBox.className = 'mt-6 p-4 bg-green-900/50 text-green-300 font-medium rounded-lg max-w-md mx-auto transition-opacity duration-500';
+                messageBox.textContent = 'Demo successful! Replace the GOOGLE_SCRIPT_URL to enable real sending.';
+
+                const existingMessage = contactSection.querySelector('.mt-6.p-4');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                form.after(messageBox);
+                form.reset();
+
+                setTimeout(() => {
+                    messageBox.style.opacity = '0';
+                    setTimeout(() => messageBox.remove(), 500);
+                }, 5000);
+
                 return;
             }
 
@@ -650,19 +707,15 @@
                 body: formData
             })
                 .then(response => {
-                    // Reset button
                     submitButton.textContent = "Sent!";
-                    submitButton.classList.remove('bg-cyan-500'); // Assuming cyan is default
+                    submitButton.classList.remove('bg-cyan-500');
                     submitButton.classList.add('bg-green-600');
 
                     const contactSection = document.getElementById('contact');
-
-                    // Create and style the message box
                     const messageBox = document.createElement('div');
                     messageBox.className = 'mt-6 p-4 bg-green-900/50 text-green-300 font-medium rounded-lg max-w-md mx-auto transition-opacity duration-500';
                     messageBox.textContent = 'Message sent successfully! Check your email for confirmation.';
 
-                    // Clear previous messages and append the new one
                     const existingMessage = contactSection.querySelector('.mt-6.p-4');
                     if (existingMessage) {
                         existingMessage.remove();
@@ -670,12 +723,10 @@
                     form.after(messageBox);
                     form.reset();
 
-                    // Reset button style after delay
                     setTimeout(() => {
                         submitButton.textContent = originalButtonText;
                         submitButton.disabled = false;
                         submitButton.classList.remove('bg-green-600');
-                        // Add back original color class if needed, or rely on base class
                         messageBox.style.opacity = '0';
                         setTimeout(() => messageBox.remove(), 500);
                     }, 4000);
@@ -683,8 +734,16 @@
                 .catch(error => {
                     console.error('Error!', error.message);
                     submitButton.textContent = "Error";
-                    alert("Something went wrong. Please try again or email me directly.");
+                    // Using custom element instead of alert()
+                    const errorBox = document.createElement('div');
+                    errorBox.className = 'mt-6 p-4 bg-red-900/50 text-red-300 font-medium rounded-lg max-w-md mx-auto';
+                    errorBox.textContent = "Something went wrong. Please try again or email me directly.";
+
+                    const contactSection = document.getElementById('contact');
+                    contactSection.querySelector('form').after(errorBox);
+
                     submitButton.disabled = false;
+                    setTimeout(() => errorBox.remove(), 5000);
                 });
         });
     </script>
