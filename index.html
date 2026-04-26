@@ -931,8 +931,9 @@
             <p class="project-desc">
               End-to-end explainable RAG system with hybrid retrieval (BM25 + FAISS + RRF),
               HyDE query expansion, MS-MARCO cross-encoder reranking, and a multi-level
-              attribution framework. Multimodal ingestion via Docling and LLaVA-Phi3 VLM.
-              Full ablation study across 3 retrieval configurations on 97 queries.
+              attribution framework. Integrated LLaVA-Phi3 for diagram captioning and 
+              DeepSeek R1 (8B) via Ollama for local, privacy-first inference. 
+              The system includes an explainability layer for cross-encoder evidence attribution and source consensus detection.
             </p>
             <div class="project-tags">
               <span class="tag">Python</span>
@@ -956,7 +957,11 @@
           <div class="project-metrics reveal">
             <div class="proj-metric">
               <span class="proj-metric-val">0.7784</span>
-              <span class="proj-metric-label">MRR</span>
+              <span class="proj-metric-label">MRR (Text)</span>
+            </div>
+            <div class="proj-metric">
+              <span class="proj-metric-val">0.967</span>
+              <span class="proj-metric-label">Visual MRR</span>
             </div>
             <div class="proj-metric">
               <span class="proj-metric-val">0.8763</span>
@@ -971,11 +976,11 @@
               <span class="proj-metric-label">Faithfulness</span>
             </div>
             <div class="proj-metric">
-              <span class="proj-metric-val">88.3%</span>
+              <span class="proj-metric-val">85.5%</span>
               <span class="proj-metric-label">Token Grounding</span>
             </div>
             <div class="proj-metric">
-              <span class="proj-metric-val">100%</span>
+              <span class="proj-metric-val">94%</span>
               <span class="proj-metric-label">Citation Validity</span>
             </div>
           </div>
