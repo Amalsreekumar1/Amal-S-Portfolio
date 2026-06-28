@@ -321,6 +321,8 @@
 
     .paper-card:hover { border-color: rgba(79,142,247,0.4); }
 
+    .paper-card + .paper-card { margin-top: 20px; }
+
     .paper-badge {
       font-family: var(--mono);
       font-size: 11px;
@@ -833,16 +835,17 @@
         Building explainable, production-grade AI systems
       </p>
       <p class="hero-desc">
-        Final-year BCA Data Science student at Amrita Vishwa Vidyapeetham.
-        IEEE-accepted researcher in Explainable AI (ICCNT 2025, IIT Indore).
+        Recent BCA Data Science graduate from Amrita Vishwa Vidyapeetham.
+        First-author paper published in IEEE Access (2026) on explainable RAG, plus
+        a second paper accepted at IEEE ICCNT 2025, IIT Indore.
         I build ML systems that are not just accurate — but transparent and trustworthy.
       </p>
 
       <div class="hero-metrics">
+        <div class="metric-pill"><strong>IEEE Access 2026</strong> · Published Paper</div>
         <div class="metric-pill"><strong>MRR 0.7784</strong> · Hybrid RAG Retrieval</div>
         <div class="metric-pill"><strong>BERTScore 0.8952</strong> · Generation Accuracy</div>
         <div class="metric-pill"><strong>100%</strong> · Citation Validity</div>
-        <div class="metric-pill"><strong>IEEE ICCNT 2025</strong> · Published Research</div>
       </div>
 
       <div class="hero-actions">
@@ -880,6 +883,31 @@
       </div>
 
       <div class="reveal">
+        <div class="paper-card">
+          <div class="paper-badge">IEEE Access · Published · 2026</div>
+          <div class="paper-title">
+            EduRAG: A Multimodal Explainable RAG System With Deterministic Token Grounding
+          </div>
+          <div class="paper-authors">
+            Amal S, et al. &nbsp;·&nbsp; DOI: 10.1109/ACCESS.2026.3704123
+          </div>
+          <ul class="paper-points">
+            <li>Hybrid retrieval system (BM25 + FAISS + RRF) with HyDE query expansion and MS-MARCO cross-encoder reranking, achieving MRR 0.7784 and Recall@5 0.8763 across 97 evaluation queries.</li>
+            <li>Multi-level attribution framework with cross-encoder evidence scoring and deterministic, stop-word-filtered token grounding (85.5%), reaching 94% citation validity.</li>
+            <li>Multimodal ingestion (PDF/DOCX/PPTX/web) via Docling and LLaVA-Phi3, with faithfulness 0.8924 and BERTScore F1 0.8952.</li>
+          </ul>
+          <div class="paper-links">
+            <a href="https://doi.org/10.1109/ACCESS.2026.3704123"
+               target="_blank" class="paper-link">
+              <i class="fas fa-file-pdf"></i> IEEE Access
+            </a>
+            <a href="https://github.com/Amalsreekumar1/Explainable-RAG-For-educational-Q-A"
+               target="_blank" class="paper-link">
+              <i class="fab fa-github"></i> Code
+            </a>
+          </div>
+        </div>
+
         <div class="paper-card">
           <div class="paper-badge">IEEE ICCNT 2025 · Accepted · IIT Indore</div>
           <div class="paper-title">
@@ -927,7 +955,7 @@
           <div class="project-card-body">
             <div class="project-num">01 / Featured</div>
             <div class="project-name">EduRAG — Explainable RAG for Educational Q&A</div>
-            <div class="project-status">● Final Year Research Project · Paper under review</div>
+            <div class="project-status">● Final Year Research Project · Published, IEEE Access (2026)</div>
             <p class="project-desc">
               End-to-end explainable RAG system with hybrid retrieval (BM25 + FAISS + RRF),
               HyDE query expansion, MS-MARCO cross-encoder reranking, and a multi-level
@@ -1138,6 +1166,18 @@
 
       <div class="timeline">
         <div class="timeline-item reveal">
+          <div class="timeline-date">Apr – Jun 2026<br><span style="color:var(--text-dim);font-size:11px;">Remote</span></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Data Science Intern</div>
+            <div class="timeline-org">SystemStar Infotech India Pvt Ltd</div>
+            <ul class="timeline-points">
+              <li>Built a Bayesian hierarchical model using Multilevel Regression and Poststratification (MRP) to convert coarse-geography survey data into reliable, fine-grained geographic estimates.</li>
+              <li>Handled survey design weights, sparse-data regions, and uncertainty propagation across levels of geographic aggregation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
           <div class="timeline-date">Nov – Dec 2024<br><span style="color:var(--text-dim);font-size:11px;">Remote</span></div>
           <div class="timeline-content">
             <div class="timeline-role">Data Analyst Intern</div>
@@ -1155,8 +1195,8 @@
             <div class="timeline-role">BCA in Data Science</div>
             <div class="timeline-org">Amrita Vishwa Vidyapeetham</div>
             <ul class="timeline-points">
-              <li>CGPA: 8.43 · Expected graduation May 2026.</li>
-              <li>Final year research project: EduRAG — Explainable RAG system (paper under review).</li>
+              <li>CGPA: 8.55 · Graduated May 2026.</li>
+              <li>Final year research project: EduRAG — Explainable RAG system, published in IEEE Access (2026).</li>
               <li>Published at IEEE ICCNT 2025: SHAP-Coded Insights, IIT Indore.</li>
             </ul>
           </div>
@@ -1230,7 +1270,7 @@
   <!-- ── FOOTER ──────────────────────────────────────────────── -->
   <footer class="wrap">
     <div class="footer-inner">
-      <div class="footer-copy">© 2025 Amal S · Open to full-time ML/AI roles</div>
+      <div class="footer-copy">© 2026 Amal S · Open to full-time ML/AI roles</div>
       <div class="footer-links">
         <a href="https://github.com/Amalsreekumar1" target="_blank">GitHub</a>
         <a href="https://www.linkedin.com/in/amal-s-3b32a8264/" target="_blank">LinkedIn</a>
