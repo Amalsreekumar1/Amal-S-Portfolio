@@ -20,6 +20,7 @@
       --text:      #c8d6f0;
       --text-dim:  #637a9f;
       --text-head: #e8f0ff;
+      --wa:        #25d366;
       --mono:      'JetBrains Mono', monospace;
       --sans:      'DM Sans', sans-serif;
       --serif:     'DM Serif Display', serif;
@@ -143,26 +144,6 @@
       padding: 80px 0 60px;
     }
 
-    .hero-tag {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--accent2);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-tag::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--accent2);
-    }
-
     h1.hero-name {
       font-family: var(--serif);
       font-size: clamp(2.8rem, 6vw, 4.4rem);
@@ -245,11 +226,52 @@
 
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
+    .btn-whatsapp {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--wa);
+      color: #052e16;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-whatsapp:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* Floating WhatsApp button */
+    .wa-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 200;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--wa);
+      color: #fff;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s;
+    }
+
+    .wa-float:hover { transform: scale(1.08); }
+
     /* Social links in hero */
     .hero-social {
       display: flex;
       gap: 16px;
       margin-top: 28px;
+      flex-wrap: wrap;
     }
 
     .hero-social a {
@@ -289,14 +311,6 @@
       max-width: 520px;
       margin-bottom: 52px;
       line-height: 1.75;
-    }
-
-    /* Divider line */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 52px;
     }
 
     /* ── RESEARCH ─────────────────────────────────────────── */
@@ -428,7 +442,8 @@
     .project-num {
       font-family: var(--mono);
       font-size: 11px;
-      color: var(--border);
+      color: var(--text-dim);
+      opacity: 0.6;
       margin-bottom: 10px;
     }
 
@@ -466,9 +481,7 @@
       border-radius: 6px;
     }
 
-    .proj-metric {
-      text-align: center;
-    }
+    .proj-metric { text-align: center; }
 
     .proj-metric-val {
       font-family: var(--mono);
@@ -524,6 +537,8 @@
     }
 
     .project-link:hover { gap: 10px; }
+
+    .projects-more { margin-top: 28px; text-align: center; }
 
     /* ── SKILLS ───────────────────────────────────────────── */
     .skills-grid {
@@ -600,8 +615,6 @@
       line-height: 1.5;
     }
 
-    .timeline-content {}
-
     .timeline-role {
       font-size: 16px;
       font-weight: 600;
@@ -677,6 +690,7 @@
     }
 
     .contact-link i { color: var(--accent); width: 16px; text-align: center; }
+    .contact-link i.wa-icon { color: var(--wa); }
     .contact-link:hover { color: var(--accent); }
 
     /* Form */
@@ -705,9 +719,7 @@
       width: 100%;
     }
 
-    .form-input:focus, .form-textarea:focus {
-      border-color: var(--accent);
-    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
 
     .form-input::placeholder, .form-textarea::placeholder {
       color: var(--text-dim);
@@ -756,10 +768,7 @@
       color: var(--text-dim);
     }
 
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
+    .footer-links { display: flex; gap: 18px; }
 
     .footer-links a {
       font-family: var(--mono);
@@ -783,11 +792,8 @@
       }
 
       .skills-grid { grid-template-columns: 1fr 1fr; }
-
       .timeline-item { grid-template-columns: 1fr; gap: 4px; }
-
       .contact-grid { grid-template-columns: 1fr; gap: 36px; }
-
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
     }
 
@@ -801,6 +807,11 @@
 
 <body>
   <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating WhatsApp button -->
+  <a href="#" class="wa-float js-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
   <!-- ── NAV ──────────────────────────────────────────────── -->
   <nav class="wrap">
@@ -829,23 +840,21 @@
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section id="hero" class="wrap">
     <div class="container">
-      <div class="hero-tag">ML Engineer & AI Researcher</div>
       <h1 class="hero-name">Amal S</h1>
       <p class="hero-title">
-        Building explainable, production-grade AI systems
+        Building Software & AI Solutions
       </p>
       <p class="hero-desc">
-        Recent BCA Data Science graduate from Amrita Vishwa Vidyapeetham.
-        First-author paper published in IEEE Access (2026) on explainable RAG, plus
-        a second paper accepted at IEEE ICCNT 2025, IIT Indore.
-        I build ML systems that are not just accurate — but transparent and trustworthy.
+        BCA Data Science graduate from Amrita Vishwa Vidyapeetham. 
+        I build backend systems, web applications, and AI-powered solutions using Python and modern development tools. 
+        My work spans software development, machine learning, and research, including publications in IEEE Access (2026) and IEEE ICCNT 2025.
       </p>
 
       <div class="hero-metrics">
-        <div class="metric-pill"><strong>IEEE Access 2026</strong> · Published Paper</div>
-        <div class="metric-pill"><strong>MRR 0.7784</strong> · Hybrid RAG Retrieval</div>
-        <div class="metric-pill"><strong>BERTScore 0.8952</strong> · Generation Accuracy</div>
-        <div class="metric-pill"><strong>100%</strong> · Citation Validity</div>
+        <div class="metric-pill"><strong>Python & Backend Development </strong> · FastAPI, Django, REST APIs</div>
+        <div class="metric-pill"><strong>Web Applications </strong> · Database-driven software solutions</div>
+        <div class="metric-pill"><strong>AI & Machine Learning</strong> · RAG, model evaluation, explainable AI</div>
+        <div class="metric-pill"><strong>IEEE Publications </strong> · IEEE Access 2026 · IEEE ICCNT 2025</div>
       </div>
 
       <div class="hero-actions">
@@ -854,6 +863,9 @@
         </a>
         <a href="#research" class="btn-ghost">
           <i class="fas fa-file-alt"></i> Research
+        </a>
+        <a href="#" class="btn-whatsapp js-whatsapp" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> WhatsApp
         </a>
       </div>
 
@@ -959,8 +971,8 @@
             <p class="project-desc">
               End-to-end explainable RAG system with hybrid retrieval (BM25 + FAISS + RRF),
               HyDE query expansion, MS-MARCO cross-encoder reranking, and a multi-level
-              attribution framework. Integrated LLaVA-Phi3 for diagram captioning and 
-              DeepSeek R1 (8B) via Ollama for local, privacy-first inference. 
+              attribution framework. Integrated LLaVA-Phi3 for diagram captioning and
+              DeepSeek R1 (8B) via Ollama for local, privacy-first inference.
               The system includes an explainability layer for cross-encoder evidence attribution and source consensus detection.
             </p>
             <div class="project-tags">
@@ -1014,9 +1026,34 @@
           </div>
         </div>
 
-        <!-- Amazon Sales -->
+        <!-- SHAP-Coded Insights -->
         <div class="project-card reveal">
           <div class="project-num">02</div>
+          <div class="project-name">SHAP-Coded Insights — Code Similarity with GraphCodeBERT</div>
+          <div class="project-status">● Accepted · IEEE ICCNT 2025, IIT Indore</div>
+          <p class="project-desc">
+            Interpretable code similarity pipeline for C and Java combining GraphCodeBERT
+            embeddings, AST structural comparison and token overlap, with SHAP-based
+            attribution that produces student-facing feedback and diff visualizations.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">GraphCodeBERT</span>
+            <span class="tag">SHAP</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">AST</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Amalsreekumar1/SHAP-Coded-Insights-Interpretable-Structural-Similarity-of-Programs-with-GraphCodeBERT"
+               target="_blank" class="project-link">
+              <i class="fab fa-github"></i> GitHub →
+            </a>
+          </div>
+        </div>
+
+        <!-- Amazon Sales -->
+        <div class="project-card reveal">
+          <div class="project-num">03</div>
           <div class="project-name">Amazon Sales Data Analysis</div>
           <p class="project-desc">
             End-to-end ETL and EDA on Amazon sales datasets. Derived KPIs and built
@@ -1040,7 +1077,7 @@
 
         <!-- Netflix -->
         <div class="project-card reveal">
-          <div class="project-num">03</div>
+          <div class="project-num">04</div>
           <div class="project-name">Netflix Content Trend Analysis</div>
           <p class="project-desc">
             Exploratory data analysis on Netflix content trends, genres, directors,
@@ -1062,11 +1099,11 @@
 
         <!-- Adventure Works -->
         <div class="project-card reveal">
-          <div class="project-num">04</div>
+          <div class="project-num">05</div>
           <div class="project-name">Adventure Works QoQ Revenue Decline Analysis</div>
           <p class="project-desc">
-            Multi-stage CTE-driven SQL analysis identifying product-region combinations with 20%+ 
-            quarter-over-quarter revenue decline using LAG window functions. Interactive Power BI 
+            Multi-stage CTE-driven SQL analysis identifying product-region combinations with 20%+
+            quarter-over-quarter revenue decline using LAG window functions. Interactive Power BI
             dashboard with drill-down matrix for executive validation.
           </p>
           <div class="project-tags">
@@ -1076,12 +1113,18 @@
             <span class="tag">Power BI</span>
           </div>
           <div class="project-footer">
-            <a href="https://github.com/Amalsreekumar1" target="_blank" class="project-link">
+            <a href="https://github.com/Amalsreekumar1?tab=repositories" target="_blank" class="project-link">
               <i class="fab fa-github"></i> Details →
             </a>
           </div>
         </div>
 
+      </div>
+
+      <div class="projects-more reveal">
+        <a href="https://github.com/Amalsreekumar1?tab=repositories" target="_blank" class="btn-ghost">
+          <i class="fab fa-github"></i> See all projects on GitHub
+        </a>
       </div>
     </div>
   </section>
@@ -1096,60 +1139,78 @@
 
       <div class="skills-grid">
         <div class="skill-group reveal">
-          <div class="skill-group-title">ML / AI</div>
-          <ul class="skill-list">
-            <li>PyTorch</li>
-            <li>HuggingFace Transformers</li>
-            <li>scikit-learn</li>
-            <li>SHAP · GraphCodeBERT</li>
-            <li>QLoRA / LoRA Fine-tuning</li>
-          </ul>
-        </div>
-        <div class="skill-group reveal">
-          <div class="skill-group-title">RAG & NLP</div>
-          <ul class="skill-list">
-            <li>LangChain · FAISS · BM25</li>
-            <li>Cross-encoder Reranking</li>
-            <li>HyDE · RRF Fusion</li>
-            <li>BERTScore · ROUGE</li>
-            <li>Docling · LLaVA-Phi3</li>
-          </ul>
-        </div>
-        <div class="skill-group reveal">
-          <div class="skill-group-title">Data</div>
-          <ul class="skill-list">
-            <li>Pandas · NumPy</li>
-            <li>Matplotlib · Seaborn</li>
-            <li>Power BI · Excel</li>
-            <li>ETL Pipelines</li>
-          </ul>
-        </div>
-        <div class="skill-group reveal">
           <div class="skill-group-title">Languages</div>
           <ul class="skill-list">
             <li>Python</li>
             <li>SQL</li>
             <li>JavaScript</li>
-            <li>HTML / CSS</li>
+            <li>HTML</li>
+            <li>CSS</li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Backend</div>
+          <ul class="skill-list">
+            <li>Django</li>
+            <li>FastAPI</li>
+            <li>REST APIs</li>
+            <li>SQLAlchemy</li>
+            <li>Pydantic</li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Databases</div>
+          <ul class="skill-list">
+            <li>MySQL</li>
+            <li>SQLite</li>
+            <li>Relational database concepts</li>
           </ul>
         </div>
         <div class="skill-group reveal">
           <div class="skill-group-title">Tools</div>
           <ul class="skill-list">
             <li>Git · GitHub</li>
-            <li>Streamlit · FastAPI</li>
-            <li>Ollama · VS Code</li>
-            <li>LaTeX</li>
+            <li>Docker Compose</li>
+            <li>VS Code</li>
+            <li>Streamlit</li>
           </ul>
         </div>
         <div class="skill-group reveal">
-          <div class="skill-group-title">Concepts</div>
+          <div class="skill-group-title">Testing</div>
           <ul class="skill-list">
-            <li>Explainable AI (XAI)</li>
-            <li>Information Retrieval</li>
-            <li>RAG Evaluation</li>
-            <li>MLOps · Model Monitoring</li>
-            <li>Cloud Computing</li>
+            <li>Debugging</li>
+            <li>Automated tests</li>
+            <li>End-to-end pipeline testing</li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">AI / ML</div>
+          <ul class="skill-list">
+            <li>scikit-learn</li>
+            <li>PyTorch</li>
+            <li>Hugging Face Transformers</li>
+            <li>SHAP</li>
+            <li>Model evaluation</li>
+            <li>ML monitoring</li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">GenAI / RAG</div>
+          <ul class="skill-list">
+            <li>LangChain</li>
+            <li>FAISS · BM25 · RRF</li>
+            <li>HyDE · Reranking</li>
+            <li>Document processing</li>
+            <li>LLM evaluation</li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Data & Analytics</div>
+          <ul class="skill-list">
+            <li>Pandas · NumPy</li>
+            <li>Matplotlib · Seaborn</li>
+            <li>Power BI · Excel</li>
+            <li>ETL Pipelines</li>
           </ul>
         </div>
       </div>
@@ -1165,6 +1226,18 @@
       </div>
 
       <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jun – Aug 2026<br><span style="color:var(--text-dim);font-size:11px;">Amritapuri, Kerala</span></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Data Analyst Intern</div>
+            <div class="timeline-org">WNA, Amrita Vishwa Vidyapeetham</div>
+            <ul class="timeline-points">
+              <li>Analyzed 500,000+ minute-level sensor readings across four datasets using time-series EDA, gap analysis, and cross-site correlation.</li>
+              <li>Developed and compared forecasting models for operational analysis.</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="timeline-item reveal">
           <div class="timeline-date">Apr – Jun 2026<br><span style="color:var(--text-dim);font-size:11px;">Remote</span></div>
           <div class="timeline-content">
@@ -1224,15 +1297,17 @@
       <div class="contact-grid">
         <div class="reveal">
           <div class="section-label">Get in touch</div>
-          <h2 class="contact-info-title">Let's talk about ML, research, or roles.</h2>
+          <h2 class="contact-info-title">Let's build something useful.</h2>
           <p class="contact-info-desc">
-            Open to full-time ML Engineer and AI Research roles.
-            Also happy to discuss research collaborations, open-source projects,
-            or just talk shop about RAG and explainable AI.
+            I'm open to software development and AI opportunities, research collaborations, and open-source projects.
+            Whether it's building web applications, backend systems, or AI-powered solutions, feel free to get in touch.
           </p>
           <div class="contact-links">
             <a href="mailto:amalsreekumar94@gmail.com" class="contact-link">
               <i class="fas fa-envelope"></i> amalsreekumar94@gmail.com
+            </a>
+            <a href="#" class="contact-link js-whatsapp" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp wa-icon"></i> Chat on WhatsApp
             </a>
             <a href="https://www.linkedin.com/in/amal-s-3b32a8264/" target="_blank" class="contact-link">
               <i class="fab fa-linkedin"></i> linkedin.com/in/amal-s
@@ -1270,7 +1345,7 @@
   <!-- ── FOOTER ──────────────────────────────────────────────── -->
   <footer class="wrap">
     <div class="footer-inner">
-      <div class="footer-copy">© 2026 Amal S · Open to full-time ML/AI roles</div>
+      <div class="footer-copy">© 2026 Amal S · Open to full-time roles</div>
       <div class="footer-links">
         <a href="https://github.com/Amalsreekumar1" target="_blank">GitHub</a>
         <a href="https://www.linkedin.com/in/amal-s-3b32a8264/" target="_blank">LinkedIn</a>
@@ -1280,6 +1355,14 @@
 
   <!-- ── SCRIPTS ─────────────────────────────────────────────── -->
   <script>
+    // ── WhatsApp ─────────────────────────────────────────────
+    // Country code + number, digits only (e.g. India: 919876543210)
+    const WHATSAPP_NUMBER = "917356902532";
+    const WHATSAPP_TEXT = encodeURIComponent("Hi Amal, I found your portfolio and would like to connect.");
+    document.querySelectorAll('.js-whatsapp').forEach(a => {
+      a.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_TEXT}`;
+    });
+
     // ── Particle canvas ──────────────────────────────────────
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -1419,7 +1502,9 @@
     // ── Smooth scroll for nav links ──────────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (href.length < 2) return;
+        const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
           target.scrollIntoView({ behavior: 'smooth' });
